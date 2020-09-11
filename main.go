@@ -2,23 +2,20 @@ package main
 
 import (
 	"fmt"
-	"manufacture_supplier_go/controller"
+	"manufacture_supplier_go/config"
 	"manufacture_supplier_go/database"
-
-	"github.com/gin-gonic/gin"
+	"manufacture_supplier_go/route"
 )
 
 func main() {
+	// 关闭数据库连接
 	defer database.NewDB().Close()
-	gin.ForceConsoleColor()
-	router := gin.Default()
 
-	tool := router.Group("/tool")
-	{
-		tool.POST("/login", controller.Login)
-	}
+	// 设置配置
+	config.Set()
 
-	err := router.Run()
+	router := route.NewRouter()
+	err := router.Run(":8080")
 	if err != nil {
 		fmt.Println("start failed：", err)
 	}

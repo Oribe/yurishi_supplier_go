@@ -1,0 +1,5 @@
+time="2020-09-11 16:30:56" level=info msg="|\t200 | 47.109231ms\t|\t::1 | POST |\t/tool/interface/login |"
+time="2020-09-11 16:32:13" level=info msg="| 200 |   33.586982ms |             ::1 | POST | /tool/interface/login |"
+time="2020-09-11 16:34:18" level=info msg="| 200 |    2.958851ms |             ::1 | POST | /tool/interface/login |"
+time="2020-09-11 17:06:31" level=info msg="| 200 |   20.632876ms |             ::1 | POST | /tool/interface/login |"
+time="2020-09-11 17:06:31" level=warning msg="| 200 |   20.632876ms |             ::1 | POST | /tool/interface/login |"
