@@ -15,10 +15,12 @@ func init() {
 
 	router.Use(middleware.Cors())
 	router.Use(middleware.Logger())
-
-	tool := router.Group("/tool/interface")
 	{
-		tool.POST("/login", controller.Login)
+		handler := middleware.CustomContext
+		tool := router.Group("/tool/interface")
+		{
+			tool.POST("/login", handler(controller.Login))
+		}
 	}
 }
 

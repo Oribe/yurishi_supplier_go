@@ -2,6 +2,7 @@ package controller
 
 import (
 	"fmt"
+	"manufacture_supplier_go/middleware"
 	"manufacture_supplier_go/server"
 	"net/http"
 
@@ -9,7 +10,7 @@ import (
 )
 
 // Login 登陆
-func Login(context *gin.Context) {
+func Login(context *middleware.Context) {
 	var user struct {
 		Username string `json:"username"`
 		Password string `json:"password"`
