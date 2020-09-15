@@ -10,23 +10,31 @@ import (
 )
 
 // Login 登陆
-func Login(username string, password string) (*model.UserModel, error) {
+func Login(username, password, domain, ip string) (*model.UserModel, string, error) {
 	var user model.UserModel
 
 	err := model.UserQueryRow(&user, username)
 	if err != nil {
-		return nil, errors.New("当前账户不存在")
+		return nil, "", errors.New("当前账户不存在")
 	}
 
 	username = strings.TrimSpace(username)
 	signPassword := util.SignPassword(username, password)
+
 	pwd, err := user.Password.MarshalText()
-	if err != nil {
-		return nil, errors.New("密码或者用户名错误")
+	if err != nil { // 用户输入密码加密失败
+		return nil, "", errors.New("密码或者用户名错误")
 	}
+
+	// 验证数据库中的用户密码是否与用户输入的密码相同
 	if hmac.Equal(signPassword, pwd) {
-		return nil, errors.New("密码或者用户名错误")
+		return nil, "", errors.New("密码或者用户名错误")
 	}
-	fmt.Println(user.Email.Value())
-	return &user, nil
+
+	// 登陆成功，生成token
+	token, err := util.CreateToken(username, domain, ip)
+	if err != nil {
+		return nil, "", fmt.Errorf("生成Token失败：%v", err)
+	}
+	return &user, token, nil
 }

@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"manufacture_supplier_go/util"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
@@ -29,13 +30,18 @@ func CustomContext(handler HandlerFunc) gin.HandlerFunc {
 // ResData 请求成功
 type ResData struct {
 	code int
-	data gin.H
+	data interface{}
 	msg  string
 }
 
 // Success  请求成功
-func (c *Context) Success(code int, obj ResData) {
-	c.JSON(code, obj)
+func (c *Context) Success(obj interface{}, msg string, code int) {
+	resData := gin.H{
+		"code": code,
+		"data": obj,
+		"msg":  msg,
+	}
+	c.JSON(http.StatusOK, resData)
 }
 
 // Failed  请求成功

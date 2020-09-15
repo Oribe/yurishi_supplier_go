@@ -84,7 +84,6 @@ func (l *logBase) createDir() error {
 }
 
 func (l *logBase) initial() {
-
 	err := l.createDir()
 	if err != nil {
 		panic(err)
