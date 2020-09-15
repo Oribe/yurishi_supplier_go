@@ -30,6 +30,5 @@ func Logger() gin.HandlerFunc {
 		fmt.Println(latencyTime, method, requestURL, statusCode, clientIP)
 
 		logger.Infof("| %d | %13v | %15s | %s | %s |", statusCode, latencyTime, clientIP, method, requestURL)
-		logger.Warnf("| %d | %13v | %15s | %s | %s |", statusCode, latencyTime, clientIP, method, requestURL)
 	}
 }

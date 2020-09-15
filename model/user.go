@@ -2,14 +2,9 @@ package model
 
 import (
 	"encoding/json"
-	"fmt"
 
 	"github.com/guregu/null"
 )
-
-// UserBrief 用户信息（无密码）
-// type UserBrief struct {
-// }
 
 // UserModel 用户类型
 type UserModel struct {
@@ -46,10 +41,14 @@ func (u *UserModel) Brief() *User {
 
 // UserQueryRow 查询单条用户信息
 func UserQueryRow(user *UserModel, userName string) error {
-	sql := "SELECT id, userName, email, mobile, supplier, contact, supplierId, password, remark FROM users WHERE userName = ?"
+	sql := `SELECT 
+						id, userName, email, mobile, supplier, contact, supplierId, password, remark 
+					FROM 
+						users
+					WHERE 
+						userName = ?`
 	err := db.Get(user, sql, userName)
 	if err != nil {
-		fmt.Println("model.user:38", err)
 		return err
 	}
 	user.Email.Value()

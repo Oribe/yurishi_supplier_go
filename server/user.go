@@ -15,14 +15,14 @@ func Login(username string, password string) (*model.UserModel, error) {
 
 	err := model.UserQueryRow(&user, username)
 	if err != nil {
-		return nil, err
+		return nil, errors.New("当前账户不存在")
 	}
 
 	username = strings.TrimSpace(username)
 	signPassword := util.SignPassword(username, password)
 	pwd, err := user.Password.MarshalText()
 	if err != nil {
-		return nil, err
+		return nil, errors.New("密码或者用户名错误")
 	}
 	if hmac.Equal(signPassword, pwd) {
 		return nil, errors.New("密码或者用户名错误")
