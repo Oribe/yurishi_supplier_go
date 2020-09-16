@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"manufacture_supplier_go/util"
+	util "manufacture_supplier_go/util/jwt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -10,7 +10,6 @@ import (
 // Auth token验证
 func Auth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-
 		authFaild := func() {
 			resData := gin.H{
 				"code": 203,
@@ -31,10 +30,9 @@ func Auth() gin.HandlerFunc {
 				authFaild()
 			}
 
-			domain := ctx.Request.URL.Hostname()
 			ip := ctx.ClientIP()
 
-			ok := util.VerifyToken(auth, "", domain, ip)
+			ok := util.VerifyToken(auth, ip)
 
 			if !ok { // token验证失败
 				authFaild()

@@ -25,7 +25,7 @@ func Login(ctx *middleware.Context) {
 	ip := ctx.ClientIP()
 	fmt.Println("域名：", demain)
 	fmt.Println("ip地址：", ip)
-	userInfo, token, err := server.Login(user.Username, user.Password, demain, ip)
+	userInfo, token, err := server.Login(user.Username, user.Password, ip)
 	if err != nil {
 		fmt.Println("25", err)
 		ctx.JSON(http.StatusOK, gin.H{"msg": err.Error()})
@@ -40,4 +40,9 @@ func Login(ctx *middleware.Context) {
 	ctx.Success(resData, "", 0)
 
 	return
+}
+
+// Logout 登出
+func Logout(ctx *middleware.Context) {
+
 }

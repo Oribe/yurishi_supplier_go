@@ -6,11 +6,14 @@ import (
 	"fmt"
 	"manufacture_supplier_go/model"
 	"manufacture_supplier_go/util"
+	"manufacture_supplier_go/util/jwt"
 	"strings"
+
+	"github.com/patrickmn/go-cache"
 )
 
 // Login 登陆
-func Login(username, password, domain, ip string) (*model.UserModel, string, error) {
+func Login(username, password, ip string) (*model.UserModel, string, error) {
 	var user model.UserModel
 
 	err := model.UserQueryRow(&user, username)
@@ -32,7 +35,11 @@ func Login(username, password, domain, ip string) (*model.UserModel, string, err
 	}
 
 	// 登陆成功，生成token
-	token, err := util.CreateToken(username, domain, ip)
+	token, err := jwt.CreateToken(username, ip, user.ID)
+
+	// 加入缓存
+	cache.Cache.Get()
+
 	if err != nil {
 		return nil, "", fmt.Errorf("生成Token失败：%v", err)
 	}
