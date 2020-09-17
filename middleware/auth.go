@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"manufacture_supplier_go/cache"
 	util "manufacture_supplier_go/util/jwt"
 	"net/http"
 
@@ -10,10 +11,10 @@ import (
 // Auth token验证
 func Auth() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		authFaild := func() {
+		authFaild := func(msg string) {
 			resData := gin.H{
 				"code": 203,
-				"msg":  "请先登录",
+				"msg":  msg,
 			}
 			ctx.JSON(http.StatusNonAuthoritativeInfo, resData)
 			ctx.Abort() // 必须，返回相应数据后主动断开链接
@@ -27,15 +28,22 @@ func Auth() gin.HandlerFunc {
 			auth := ctx.GetHeader("authorization")
 			if auth == "" {
 				// token不存在
-				authFaild()
+				authFaild("请先登录")
+			}
+
+			v, ok := cache.Get(auth)
+
+			if !ok {
+				// 用户可能已退出登录
+				authFaild("登录状态可能已过期，请先登录")
 			}
 
 			ip := ctx.ClientIP()
 
-			ok := util.VerifyToken(auth, ip)
+			ok = util.VerifyToken(auth, ip, v)
 
 			if !ok { // token验证失败
-				authFaild()
+				authFaild("token验证失败")
 			}
 		}
 		ctx.Next()

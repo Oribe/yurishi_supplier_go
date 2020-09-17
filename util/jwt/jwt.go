@@ -17,10 +17,13 @@ type Claism struct {
 
 // ValidIP 验证
 func (c *Claism) ValidIP(ip string) bool {
-	if c.IP != ip {
-		return false
-	}
-	return true
+	return c.IP == ip
+}
+
+// ValidAud 验证一下
+func (c *Claism) ValidAud(username interface{}) bool {
+	u := username.(string)
+	return c.Audience == u
 }
 
 // CreateToken 生成Token
@@ -44,7 +47,7 @@ func CreateToken(username, ip string, id int) (string, error) {
 }
 
 // VerifyToken 验证token
-func VerifyToken(tokenString, ip string) bool {
+func VerifyToken(tokenString, ip string, username interface{}) bool {
 	token, err := jwt.ParseWithClaims(
 		tokenString,
 		&Claism{},
@@ -52,7 +55,7 @@ func VerifyToken(tokenString, ip string) bool {
 			return []byte(signingKey), nil
 		})
 
-	if claism, ok := token.Claims.(*Claism); ok && token.Valid && claism.ValidIP(ip) {
+	if claism, ok := token.Claims.(*Claism); ok && token.Valid && claism.ValidIP(ip) && claism.ValidAud(username) {
 		// token验证成功
 		fmt.Printf(
 			"aud:%v ip:%v valid:%v\n",

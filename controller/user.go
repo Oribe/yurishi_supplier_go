@@ -28,7 +28,7 @@ func Login(ctx *middleware.Context) {
 	userInfo, token, err := server.Login(user.Username, user.Password, ip)
 	if err != nil {
 		fmt.Println("25", err)
-		ctx.JSON(http.StatusOK, gin.H{"msg": err.Error()})
+		ctx.Failed(http.StatusOK, err.Error(), nil)
 		return
 	}
 	userBriefInfo := userInfo.Brief()
@@ -37,6 +37,7 @@ func Login(ctx *middleware.Context) {
 		"uuid":     token,
 		"userInfo": userBriefInfo,
 	}
+
 	ctx.Success(resData, "", 0)
 
 	return
@@ -44,5 +45,11 @@ func Login(ctx *middleware.Context) {
 
 // Logout 登出
 func Logout(ctx *middleware.Context) {
-
+	auth := ctx.GetHeader("authorization")
+	ok := server.LogOut(auth)
+	if !ok {
+		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", gin.H{})
+	}
+	ctx.Success(gin.H{}, "退出成功", 0)
+	return
 }

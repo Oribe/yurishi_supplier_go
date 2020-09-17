@@ -4,12 +4,11 @@ import (
 	"crypto/hmac"
 	"errors"
 	"fmt"
+	"manufacture_supplier_go/cache"
 	"manufacture_supplier_go/model"
 	"manufacture_supplier_go/util"
 	"manufacture_supplier_go/util/jwt"
 	"strings"
-
-	"github.com/patrickmn/go-cache"
 )
 
 // Login 登陆
@@ -37,11 +36,21 @@ func Login(username, password, ip string) (*model.UserModel, string, error) {
 	// 登陆成功，生成token
 	token, err := jwt.CreateToken(username, ip, user.ID)
 
-	// 加入缓存
-	cache.Cache.Get()
-
 	if err != nil {
 		return nil, "", fmt.Errorf("生成Token失败：%v", err)
 	}
+
+	// 保存到缓存
+	ok := cache.Set(token, username, cache.DefaultExpiration)
+	if !ok {
+		return nil, "", fmt.Errorf("token保存失败")
+	}
+
 	return &user, token, nil
+}
+
+// LogOut 登出
+func LogOut(token string) (ok bool) {
+	ok = cache.Delete(token)
+	return
 }

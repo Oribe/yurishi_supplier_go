@@ -44,7 +44,12 @@ func (c *Context) Success(obj interface{}, msg string, code int) {
 	c.JSON(http.StatusOK, resData)
 }
 
-// Failed  请求成功
-func (c *Context) Failed(code int, obj ResData) {
-	c.JSON(code, obj)
+// Failed  请求失败
+func (c *Context) Failed(code int, msg string, obj interface{}) {
+	ResData := gin.H{
+		"msg":  msg,
+		"code": code,
+		"data": obj,
+	}
+	c.JSON(code, ResData)
 }

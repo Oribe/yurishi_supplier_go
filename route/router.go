@@ -15,6 +15,7 @@ func init() {
 
 	router.Use(middleware.Cors())
 	router.Use(middleware.Logger())
+	router.Use(middleware.Auth())
 	{
 		handler := middleware.CustomContext
 		tool := router.Group("/tool/interface")
