@@ -7,9 +7,14 @@ import (
 	"manufacture_supplier_go/cache"
 	"manufacture_supplier_go/model"
 	"manufacture_supplier_go/util"
-	"manufacture_supplier_go/util/jwt"
 	"strings"
 )
+
+// UserLoginInfo 用户登录信息（用户存到缓存中）
+type UserLoginInfo struct {
+	ID int
+	IP string
+}
 
 // Login 登陆
 func Login(username, password, ip string) (*model.UserModel, string, error) {
@@ -34,14 +39,21 @@ func Login(username, password, ip string) (*model.UserModel, string, error) {
 	}
 
 	// 登陆成功，生成token
-	token, err := jwt.CreateToken(username, ip, user.ID)
+	// token, err := jwt.CreateToken(username, ip, user.ID)
+	// if err != nil {
+	// 	return nil, "", fmt.Errorf("生成Token失败：%v", err)
+	// }
+	token := util.CreateToken()
 
-	if err != nil {
-		return nil, "", fmt.Errorf("生成Token失败：%v", err)
+	fmt.Println(token)
+
+	loginInfo := UserLoginInfo{
+		user.ID,
+		ip,
 	}
 
 	// 保存到缓存
-	ok := cache.Set(token, username, cache.DefaultExpiration)
+	ok := cache.Set(token, loginInfo, cache.DefaultExpiration)
 	if !ok {
 		return nil, "", fmt.Errorf("token保存失败")
 	}
@@ -53,4 +65,10 @@ func Login(username, password, ip string) (*model.UserModel, string, error) {
 func LogOut(token string) (ok bool) {
 	ok = cache.Delete(token)
 	return
+}
+
+// 修改用户信息
+func UserEdit(user model.User) error {
+	err := model.UserUpdate(user)
+	return err
 }

@@ -36,6 +36,9 @@ type ResData struct {
 
 // Success  请求成功
 func (c *Context) Success(obj interface{}, msg string, code int) {
+	if obj == nil {
+		obj = gin.H{}
+	}
 	resData := gin.H{
 		"code": code,
 		"data": obj,
@@ -46,6 +49,9 @@ func (c *Context) Success(obj interface{}, msg string, code int) {
 
 // Failed  请求失败
 func (c *Context) Failed(code int, msg string, obj interface{}) {
+	if obj == nil {
+		obj = gin.H{}
+	}
 	ResData := gin.H{
 		"msg":  msg,
 		"code": code,

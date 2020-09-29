@@ -18,7 +18,8 @@ func main() {
 	config.Set()
 
 	router := route.NewRouter()
-	err := router.Run(":8080")
+	// err := router.Run(":8081")
+	err := router.Run(":7002")
 	if err != nil {
 		fmt.Println("start failed：", err)
 	}

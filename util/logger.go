@@ -77,8 +77,10 @@ func (l *logBase) createDir() error {
 	if _, err := os.Stat(l.basePath); err != nil {
 		// log文件夹不存在，创建
 		err = os.Mkdir(l.basePath, os.ModePerm)
-		msg := fmt.Errorf("create dir log failed, err: %s", err.Error())
-		return msg
+		if err != nil {
+			msg := fmt.Errorf("create dir log failed, err: %s", err.Error())
+			return msg
+		}
 	}
 	return nil
 }

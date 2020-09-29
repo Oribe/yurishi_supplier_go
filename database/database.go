@@ -12,7 +12,7 @@ const (
 	host     = "localhost"
 	database = "manufacture_supplier"
 	port     = 3307
-	password = "123456"
+	password = "12345678"
 )
 
 var db *sqlx.DB

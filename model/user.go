@@ -2,6 +2,8 @@ package model
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 
 	"github.com/guregu/null"
 )
@@ -52,5 +54,31 @@ func UserQueryRow(user *UserModel, userName string) error {
 		return err
 	}
 	user.Email.Value()
+	return nil
+}
+
+// UserUpdate 更新用户信息
+func UserUpdate(user User) error {
+	sql := `UPDATE 
+						users
+					SET
+						userName=?, email=?, mobile=?, supplier=?, contact=?, supplierId=?, remark=? 
+					WHERE
+						id=?
+	`
+	result, err := db.Exec(sql, user.UserName, user.Email, user.Mobile, user.Supplier, user.Contact, user.SupplierID, user.Remark, user.ID)
+	if err != nil {
+		fmt.Println("用户信息更新失败：", err)
+		return err
+	}
+	count, err := result.RowsAffected()
+	if err != nil {
+		fmt.Println("修改错误：", err)
+		return err
+	}
+	if count < 0 {
+		fmt.Println("修改错误：", count)
+		return errors.New("修改失败")
+	}
 	return nil
 }

@@ -1,8 +1,10 @@
 package middleware
 
 import (
+	"fmt"
 	"manufacture_supplier_go/cache"
-	util "manufacture_supplier_go/util/jwt"
+	"manufacture_supplier_go/server"
+	"manufacture_supplier_go/util/crypto"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -18,7 +20,6 @@ func Auth() gin.HandlerFunc {
 			}
 			ctx.JSON(http.StatusNonAuthoritativeInfo, resData)
 			ctx.Abort() // 必须，返回相应数据后主动断开链接
-			return
 		}
 
 		pathname := ctx.Request.URL.Path
@@ -29,22 +30,33 @@ func Auth() gin.HandlerFunc {
 			if auth == "" {
 				// token不存在
 				authFaild("请先登录")
+				return
 			}
 
-			v, ok := cache.Get(auth)
+			uuid, err := crypto.PrivateDecrypt(auth)
+			if err != nil { // token验证失败
+				fmt.Println("token验证失败：", err.Error())
+				authFaild("token验证失败")
+				return
+			}
 
+			// 判断是否已登录
+			v, ok := cache.Get(uuid)
 			if !ok {
 				// 用户可能已退出登录
 				authFaild("登录状态可能已过期，请先登录")
+				return
 			}
 
+			// 验证ip地址
+			loginInfo := v.(server.UserLoginInfo)
 			ip := ctx.ClientIP()
 
-			ok = util.VerifyToken(auth, ip, v)
-
-			if !ok { // token验证失败
+			if loginInfo.IP != ip {
 				authFaild("token验证失败")
+				return
 			}
+
 		}
 		ctx.Next()
 	}

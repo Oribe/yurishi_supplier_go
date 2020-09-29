@@ -3,6 +3,7 @@ package controller
 import (
 	"fmt"
 	"manufacture_supplier_go/middleware"
+	"manufacture_supplier_go/model"
 	"manufacture_supplier_go/server"
 	"net/http"
 
@@ -48,8 +49,25 @@ func Logout(ctx *middleware.Context) {
 	auth := ctx.GetHeader("authorization")
 	ok := server.LogOut(auth)
 	if !ok {
-		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", gin.H{})
+		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", nil)
 	}
-	ctx.Success(gin.H{}, "退出成功", 0)
+	ctx.Success(nil, "退出成功", 0)
+	return
+}
+
+// UserEdit 用户编辑
+func UserEdit(ctx *middleware.Context) {
+	user := model.User{}
+	err := ctx.ShouldBindJSON(&user)
+	if err != nil {
+		ctx.Failed(http.StatusAccepted, "参数错误", nil)
+		return
+	}
+	err = server.UserEdit(user)
+	if err != nil {
+		ctx.Failed(http.StatusAccepted, "修改失败", nil)
+		return
+	}
+	ctx.Success(nil, "修改成功", 0)
 	return
 }
