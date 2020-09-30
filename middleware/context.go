@@ -11,7 +11,7 @@ import (
 // Context 自定义Context
 type Context struct {
 	*gin.Context
-	logger *logrus.Logger
+	Logger *logrus.Logger
 }
 
 // HandlerFunc ...
@@ -22,7 +22,7 @@ func CustomContext(handler HandlerFunc) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		customCtx := &Context{}
 		customCtx.Context = ctx
-		customCtx.logger = util.NewLog()
+		customCtx.Logger = util.NewLog()
 		handler(customCtx)
 	}
 }

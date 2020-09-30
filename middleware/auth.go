@@ -57,6 +57,7 @@ func Auth() gin.HandlerFunc {
 				return
 			}
 
+			ctx.Set("userId", loginInfo.ID)
 		}
 		ctx.Next()
 	}

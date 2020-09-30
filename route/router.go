@@ -20,9 +20,17 @@ func init() {
 		handler := middleware.CustomContext
 		tool := router.Group("/tool/interface")
 		{
+			/**
+			 * 用户
+			 */
 			tool.POST("/login", handler(controller.Login))          // 用户登录
 			tool.POST("/logout", handler(controller.Logout))        // 用户登出
 			tool.POST("/user/update", handler(controller.UserEdit)) //修改用户信息
+
+			/**
+			 * 订单
+			 */
+			tool.GET("/order/query", handler(controller.OrderSearch)) // 订单查询
 		}
 	}
 }
