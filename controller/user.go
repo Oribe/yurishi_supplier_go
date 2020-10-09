@@ -18,18 +18,19 @@ func Login(ctx *middleware.Context) {
 	}
 	err := ctx.ShouldBindJSON(&user)
 	if err != nil {
-		ctx.JSON(http.StatusNotModified, gin.H{"msg": "参数错误"})
+		ctx.Failed(http.StatusNotModified, "参数错误", nil)
 		return
 	}
 
-	demain := ctx.Request.URL.Hostname()
+	// demain := ctx.Request.URL.Hostname()
 	ip := ctx.ClientIP()
-	fmt.Println("域名：", demain)
 	fmt.Println("ip地址：", ip)
+	fmt.Println("psd:", user.Password)
+
 	userInfo, token, err := server.Login(user.Username, user.Password, ip)
 	if err != nil {
-		fmt.Println("25", err)
-		ctx.Failed(http.StatusOK, err.Error(), nil)
+		fmt.Println("25:", err)
+		ctx.Failed(http.StatusBadRequest, err.Error(), nil)
 		return
 	}
 	userBriefInfo := userInfo.Brief()
@@ -50,6 +51,7 @@ func Logout(ctx *middleware.Context) {
 	ok := server.LogOut(auth)
 	if !ok {
 		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", nil)
+		return
 	}
 	ctx.Success(nil, "退出成功", 0)
 	return

@@ -31,6 +31,18 @@ func init() {
 			 * 订单
 			 */
 			tool.GET("/order/query", handler(controller.OrderSearch)) // 订单查询
+
+			/**
+			 * 镗削
+			 */
+			tool.GET("/boring/head", handler(controller.BoringHeadQuery))   // BoringHead 镗头
+			tool.POST("/boring/head", handler(controller.BoringHeadInsert)) // BoringHead 镗头
+
+			/**
+			* 错误
+			 */
+			tool.POST("/error/record", handler(controller.ErrorRecord)) // 错误收集
+
 		}
 	}
 }

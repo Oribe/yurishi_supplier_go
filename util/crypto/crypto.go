@@ -3,8 +3,10 @@ package crypto
 import (
 	"crypto/rand"
 	"crypto/rsa"
+	"crypto/sha256"
 	"crypto/x509"
 	"encoding/base64"
+	"encoding/hex"
 	"encoding/pem"
 	"errors"
 	"io/ioutil"
@@ -69,4 +71,15 @@ func PrivateDecrypt(auth string) (string, error) {
 	}
 
 	return base64.StdEncoding.EncodeToString(plainText), nil
+}
+
+const salt = "!)3&*yA(."
+
+// SignPassword 密码加密
+func SignPassword(username string, password string) string {
+	beforeSign := password + "|" + salt + "|" + username
+	h := sha256.New()
+	h.Write([]byte(beforeSign))
+	b := h.Sum(nil)
+	return hex.EncodeToString(b)
 }

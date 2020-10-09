@@ -1,4 +1,4 @@
-package util
+package constant
 
 const (
 	// LoginStatusExpiredMsg 登陆状态过期
