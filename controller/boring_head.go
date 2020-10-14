@@ -17,7 +17,7 @@ func BoringHeadQuery(ctx *middleware.Context) {
 	}
 	boringHeadList, err := server.BoringHeadQuery(orderNumber, userID)
 	if err != nil {
-		ctx.Failed(http.StatusBadRequest, err.Error(), nil)
+		ctx.Failed(http.StatusBadRequest, err.Error(), nil, err.Error())
 		return
 	}
 	ctx.Success(boringHeadList, "查询成功", 0)
@@ -29,7 +29,7 @@ func BoringHeadInsert(ctx *middleware.Context) {
 	body := server.BoringHead{}
 	err := ctx.ShouldBindJSON(&body)
 	if err != nil {
-		ctx.Failed(http.StatusBadRequest, "参数错误", nil)
+		ctx.Failed(http.StatusBadRequest, "参数错误", nil, err.Error())
 		return
 	}
 
@@ -41,7 +41,7 @@ func BoringHeadInsert(ctx *middleware.Context) {
 
 	lastInserID, err := server.BoringHeadInsert(&body)
 	if err != nil {
-		ctx.Failed(http.StatusBadRequest, err.Error(), nil)
+		ctx.Failed(http.StatusBadRequest, err.Error(), nil, err.Error())
 		return
 	}
 

@@ -23,15 +23,14 @@ func OrderSearch(ctx *middleware.Context) {
 
 	userID, exists := ctx.Get("userId")
 	if !exists {
-		ctx.Failed(http.StatusBadRequest, constant.LoginStatusExpiredMsg, nil)
+		ctx.Failed(http.StatusBadRequest, constant.LoginStatusExpiredMsg, nil, "")
 		return
 	}
 
 	uid := userID.(int)
 	orderList, err := server.OrderQuery(startTime, endTime, uid)
 	if err != nil {
-		ctx.Logger.Errorln(err.Error())
-		ctx.Failed(http.StatusBadRequest, "查询失败", err.Error())
+		ctx.Failed(http.StatusBadRequest, "查询失败", nil, err.Error())
 		return
 	}
 

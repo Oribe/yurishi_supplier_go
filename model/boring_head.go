@@ -42,7 +42,7 @@ func (b *BoringHead) InsertToDB() (int64, error) {
 						(category, subCategory, manufacturer, orderNumber, BMC, CCMS, CSCMS, CCTMS, CZCMS, CCCRT, CSCCRT, CASC, IIC, SC, ANC, ICDC, THCKC, HAND, DCX, DCN, LF, CSP, INBORROUGH, INBORFINE, INBORSTEP, INBORBK, submitter)
 					VALUES
 						(:category, :subCategory, :manufacturer, :orderNumber, :BMC, :CCMS, :CSCMS, :CCTMS, :CZCMS, :CCCRT, :CSCCRT, :CASC, :IIC, :SC, :ANC, :ICDC, :THCKC, :HAND, :DCX, :DCN, :LF, :CSP, :INBORROUGH, :INBORFINE, :INBORSTEP, :INBORBK, :submitter)`
-	result, err := db.Exec(sql, b)
+	result, err := db.NamedExec(sql, b)
 	if err != nil {
 		error := fmt.Errorf("insert into table boring_head failed: %v", err.Error())
 		return 0, error

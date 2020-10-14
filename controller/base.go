@@ -9,7 +9,7 @@ import (
 func getUserID(ctx *middleware.Context) (int, bool) {
 	id, exist := ctx.Get("userId")
 	if !exist {
-		ctx.Failed(http.StatusUnauthorized, constant.LoginStatusExpiredMsg, nil)
+		ctx.Failed(http.StatusUnauthorized, constant.LoginStatusExpiredMsg, nil, "")
 		return 0, exist
 	}
 	userID := id.(int)

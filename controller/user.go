@@ -18,7 +18,7 @@ func Login(ctx *middleware.Context) {
 	}
 	err := ctx.ShouldBindJSON(&user)
 	if err != nil {
-		ctx.Failed(http.StatusNotModified, "参数错误", nil)
+		ctx.Failed(http.StatusNotModified, "参数错误", nil, err.Error())
 		return
 	}
 
@@ -30,7 +30,7 @@ func Login(ctx *middleware.Context) {
 	userInfo, token, err := server.Login(user.Username, user.Password, ip)
 	if err != nil {
 		fmt.Println("25:", err)
-		ctx.Failed(http.StatusBadRequest, err.Error(), nil)
+		ctx.Failed(http.StatusBadRequest, err.Error(), nil, err.Error())
 		return
 	}
 	userBriefInfo := userInfo.Brief()
@@ -50,7 +50,7 @@ func Logout(ctx *middleware.Context) {
 	auth := ctx.GetHeader("authorization")
 	ok := server.LogOut(auth)
 	if !ok {
-		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", nil)
+		ctx.Failed(http.StatusNonAuthoritativeInfo, "退出失败", nil, "")
 		return
 	}
 	ctx.Success(nil, "退出成功", 0)
@@ -62,12 +62,12 @@ func UserEdit(ctx *middleware.Context) {
 	user := model.User{}
 	err := ctx.ShouldBindJSON(&user)
 	if err != nil {
-		ctx.Failed(http.StatusAccepted, "参数错误", nil)
+		ctx.Failed(http.StatusAccepted, "参数错误", nil, err.Error())
 		return
 	}
 	err = server.UserEdit(user)
 	if err != nil {
-		ctx.Failed(http.StatusAccepted, "修改失败", nil)
+		ctx.Failed(http.StatusAccepted, "修改失败", nil, err.Error())
 		return
 	}
 	ctx.Success(nil, "修改成功", 0)

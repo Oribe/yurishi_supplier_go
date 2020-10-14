@@ -48,7 +48,10 @@ func (c *Context) Success(obj interface{}, msg string, code int) {
 }
 
 // Failed  请求失败
-func (c *Context) Failed(code int, msg string, obj interface{}) {
+func (c *Context) Failed(code int, msg string, obj interface{}, logMsg string) {
+	if logMsg != "" {
+		c.Logger.Errorln(logMsg)
+	}
 	if obj == nil {
 		obj = gin.H{}
 	}

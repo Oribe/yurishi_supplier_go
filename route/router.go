@@ -39,6 +39,12 @@ func init() {
 			tool.POST("/boring/head", handler(controller.BoringHeadInsert)) // BoringHead 镗头
 
 			/**
+			 * 钻削
+			 */
+			tool.GET("/drill/gun", handler(controller.DrillGunQueryWithOrderNumber)) // 枪钻
+			tool.POST("/drill/gun", handler(controller.DrillGunInsert))              // 枪钻
+
+			/**
 			* 错误
 			 */
 			tool.POST("/error/record", handler(controller.ErrorRecord)) // 错误收集
