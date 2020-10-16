@@ -28,24 +28,16 @@ func OrderQuery(orderList *[]Order, startTime, endTime string, userID int) error
 				AND 
 					createAt <= ?`
 
-	stmt, err := db.Prepare(q)
+	stmt, err := db.Preparex(q)
 	if err != nil {
 		error := errors.New("order prepare query error: " + err.Error())
 		return error
 	}
 
-	rows, err := stmt.Query(startTime, endTime, userID)
+	err = stmt.Select(orderList, startTime, endTime, userID)
 	if err != nil {
 		error := errors.New("order query error: " + err.Error())
 		return error
-	}
-
-	for rows.Next() {
-		err = rows.Scan(orderList)
-		if err != nil {
-			error := errors.New("order query scan error: " + err.Error())
-			return error
-		}
 	}
 
 	return nil

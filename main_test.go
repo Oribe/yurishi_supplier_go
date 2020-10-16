@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"manufacture_supplier_go/route"
+	"manufacture_supplier_go/server"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -37,4 +38,12 @@ func TestOrderSearch(t *testing.T) {
 	req, _ := http.NewRequest("GET", "/tool/interface/order/query", nil)
 	router.ServeHTTP(w, req)
 	assert.Equal(t, 200, w.Code)
+}
+
+// TestDrillIndexableBodyQueryWidthOrderNumber 可转位钻头刀体查询
+func TestDrillIndexableBodyQueryWidthOrderNumber(t *testing.T) {
+	_, err := server.DrillIndexableBodyQueryWidthOrderNumber("", "1")
+	if err != nil {
+		t.Errorf("可转位钻头刀体查询失败：%v", err.Error())
+	}
 }

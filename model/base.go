@@ -17,3 +17,8 @@ type CutterBase struct {
 	OrderNumber  string `db:"orderNumber" json:"orderNumber"`
 	Submitter    string `db:"submitter" json:"submitter"`
 }
+
+type queryParam struct {
+	orderNumber string
+	userID      int
+}

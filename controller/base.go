@@ -4,16 +4,17 @@ import (
 	"manufacture_supplier_go/constant"
 	"manufacture_supplier_go/middleware"
 	"net/http"
+	"strconv"
 )
 
-func getUserID(ctx *middleware.Context) (int, bool) {
+func getUserID(ctx *middleware.Context) (string, bool) {
 	id, exist := ctx.Get("userId")
 	if !exist {
 		ctx.Failed(http.StatusUnauthorized, constant.LoginStatusExpiredMsg, nil, "")
-		return 0, exist
+		return "", exist
 	}
 	userID := id.(int)
-	return userID, exist
+	return strconv.Itoa(userID), exist
 }
 
 func unauthorized() {

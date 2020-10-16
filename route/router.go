@@ -41,8 +41,10 @@ func init() {
 			/**
 			 * 钻削
 			 */
-			tool.GET("/drill/gun", handler(controller.DrillGunQueryWithOrderNumber)) // 枪钻
-			tool.POST("/drill/gun", handler(controller.DrillGunInsert))              // 枪钻
+			tool.GET("/drill/gun", handler(controller.DrillGunQueryWithOrderNumber))                       // 枪钻
+			tool.POST("/drill/gun", handler(controller.DrillGunInsert))                                    // 枪钻
+			tool.GET("/drill/indexable/body", handler(controller.DrillIndexableBodyQueryWidthOrderNumber)) // 可转位钻头刀体
+			tool.POST("/drill/indexable/body", handler(controller.DrillIndexableBodyInsert))               // 可转位钻头刀体
 
 			/**
 			* 错误

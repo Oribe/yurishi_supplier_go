@@ -18,13 +18,13 @@ func Auth() gin.HandlerFunc {
 				"code": 203,
 				"msg":  msg,
 			}
-			ctx.JSON(http.StatusNonAuthoritativeInfo, resData)
+			ctx.JSON(http.StatusUnauthorized, resData)
 			ctx.Abort() // 必须，返回相应数据后主动断开链接
 		}
 
 		pathname := ctx.Request.URL.Path
 
-		if pathname != "/tool/interface/login" {
+		if pathname != "/tool/interface/login" && pathname != "/tool/interface/logout" {
 			// 如果不是登录请求
 			auth := ctx.GetHeader("authorization")
 			if auth == "" {

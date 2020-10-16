@@ -24,7 +24,7 @@ const (
 var (
 	currentDirPath, _ = os.Getwd()
 	// LogBasePath 日志路径
-	LogBasePath = path.Join(currentDirPath, "../log")
+	LogBasePath = path.Join(currentDirPath, "./log")
 	//TestLogBasePath 测试日志路径
 	TestLogBasePath = path.Join(currentDirPath, "../log")
 )

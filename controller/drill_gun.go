@@ -28,7 +28,7 @@ func DrillGunQueryWithOrderNumber(ctx *middleware.Context) {
 // DrillGunInsert 新增
 func DrillGunInsert(ctx *middleware.Context) {
 	body := server.DrillGun{}
-	err := ctx.ShouldBindJSON(body)
+	err := ctx.ShouldBindJSON(&body)
 	if err != nil {
 		ctx.Failed(http.StatusBadRequest, "参数错误", nil, err.Error())
 		return
@@ -38,8 +38,9 @@ func DrillGunInsert(ctx *middleware.Context) {
 	if !ok {
 		return
 	}
+	body.Submitter = userID
 
-	id, err := server.DrillGunInsert(&body, userID)
+	id, err := server.DrillGunInsert(&body)
 	if err != nil {
 		ctx.Failed(http.StatusBadRequest, "添加失败", nil, err.Error())
 		return

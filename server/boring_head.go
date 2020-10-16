@@ -78,7 +78,7 @@ func BoringHeadInsert(body *BoringHead) (int64, error) {
 }
 
 // BoringHeadQuery 查询
-func BoringHeadQuery(orderNumber string, userID int) ([]model.BoringHead, error) {
+func BoringHeadQuery(orderNumber string, userID string) ([]model.BoringHead, error) {
 	boringHeadList := []model.BoringHead{}
 	err := model.BoringHeadQueryWithOrderNumber(&boringHeadList, orderNumber, userID)
 	if err != nil {
