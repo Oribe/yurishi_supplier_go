@@ -16,7 +16,3 @@ func getUserID(ctx *middleware.Context) (string, bool) {
 	userID := id.(int)
 	return strconv.Itoa(userID), exist
 }
-
-func unauthorized() {
-
-}

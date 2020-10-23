@@ -2,27 +2,29 @@ package model
 
 import (
 	"fmt"
+
+	"github.com/guregu/null"
 )
 
 // DrillIndexableBody 可转位钻头刀体
 type DrillIndexableBody struct {
 	CutterBase
-	BMC   string `db:"BMC"`   // 刀体材料代码
-	CCMS  string `db:"CCMS"`  // 机床侧接口代码
-	CCTMS string `db:"CCTMS"` // 机床侧接口类型代码
-	CZCMS string `db:"CZCMS"` // 机床侧接口尺寸代码
-	IICP  string `db:"IICP"`  // 周边刀片接口代码
-	IISCP string `db:"IISCP"` // 周边刀片接口标准代码
-	ISCP  string `db:"ISCP"`  // 周边刀片尺寸代码
-	IICC  string `db:"IICC"`  // 中心刀片接口代码
-	IISCC string `db:"IISCC"` // 中心刀片接口标准代码
-	ISCC  string `db:"ISCC"`  // 中心刀片尺寸代码
-	HAND  string `db:"HAND"`  // 切削方向
-	DC    int    `db:"DC"`    // 切削直径
-	LF    int    `db:"LF"`    // 功能长度
-	LU    int    `db:"LU"`    // 可用长度
-	CSP   int    `db:"CSP"`   // 冷却液供给特性
-	DPC   int    `db:"DPC"`   // 阻尼减振属性
+	BMC   null.String `db:"BMC"`   // 刀体材料代码
+	CCMS  null.String `db:"CCMS"`  // 机床侧接口代码
+	CCTMS null.String `db:"CCTMS"` // 机床侧接口类型代码
+	CZCMS null.String `db:"CZCMS"` // 机床侧接口尺寸代码
+	IICP  null.String `db:"IICP"`  // 周边刀片接口代码
+	IISCP null.String `db:"IISCP"` // 周边刀片接口标准代码
+	ISCP  null.String `db:"ISCP"`  // 周边刀片尺寸代码
+	IICC  null.String `db:"IICC"`  // 中心刀片接口代码
+	IISCC null.String `db:"IISCC"` // 中心刀片接口标准代码
+	ISCC  null.String `db:"ISCC"`  // 中心刀片尺寸代码
+	HAND  null.String `db:"HAND"`  // 切削方向
+	DC    null.Int    `db:"DC"`    // 切削直径
+	LF    null.Int    `db:"LF"`    // 功能长度
+	LU    null.Int    `db:"LU"`    // 可用长度
+	CSP   null.Int    `db:"CSP"`   // 冷却液供给特性
+	DPC   null.Int    `db:"DPC"`   // 阻尼减振属性
 }
 
 // InsertToDB 插入到数据库

@@ -2,27 +2,29 @@ package server
 
 import (
 	"manufacture_supplier_go/model"
+
+	"github.com/guregu/null"
 )
 
 // DrillIndexableBody 可转位钻头刀体
 type DrillIndexableBody struct {
 	model.CutterBase
-	BMC   string `json:"BMC"`   // 刀体材料代码
-	CCMS  string `json:"CCMS"`  // 机床侧接口代码
-	CCTMS string `json:"CCTMS"` // 机床侧接口类型代码
-	CZCMS string `json:"CZCMS"` // 机床侧接口尺寸代码
-	IICP  string `json:"IICP"`  // 周边刀片接口代码
-	IISCP string `json:"IISCP"` // 周边刀片接口标准代码
-	ISCP  string `json:"ISCP"`  // 周边刀片尺寸代码
-	IICC  string `json:"IICC"`  // 中心刀片接口代码
-	IISCC string `json:"IISCC"` // 中心刀片接口标准代码
-	ISCC  string `json:"ISCC"`  // 中心刀片尺寸代码
-	HAND  string `json:"HAND"`  // 切削方向
-	DC    int    `json:"DC"`    // 切削直径
-	LF    int    `json:"LF"`    // 功能长度
-	LU    int    `json:"LU"`    // 可用长度
-	CSP   int    `json:"CSP"`   // 冷却液供给特性
-	DPC   int    `json:"DPC"`   // 阻尼减振属性
+	BMC   null.String `json:"BMC"`   // 刀体材料代码
+	CCMS  null.String `json:"CCMS"`  // 机床侧接口代码
+	CCTMS null.String `json:"CCTMS"` // 机床侧接口类型代码
+	CZCMS null.String `json:"CZCMS"` // 机床侧接口尺寸代码
+	IICP  null.String `json:"IICP"`  // 周边刀片接口代码
+	IISCP null.String `json:"IISCP"` // 周边刀片接口标准代码
+	ISCP  null.String `json:"ISCP"`  // 周边刀片尺寸代码
+	IICC  null.String `json:"IICC"`  // 中心刀片接口代码
+	IISCC null.String `json:"IISCC"` // 中心刀片接口标准代码
+	ISCC  null.String `json:"ISCC"`  // 中心刀片尺寸代码
+	HAND  null.String `json:"HAND"`  // 切削方向
+	DC    null.Int    `json:"DC"`    // 切削直径
+	LF    null.Int    `json:"LF"`    // 功能长度
+	LU    null.Int    `json:"LU"`    // 可用长度
+	CSP   null.Int    `json:"CSP"`   // 冷却液供给特性
+	DPC   null.Int    `json:"DPC"`   // 阻尼减振属性
 }
 
 func drillIndexableBodyDataInitial(body *DrillIndexableBody) *model.DrillIndexableBody {

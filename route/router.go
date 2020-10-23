@@ -41,10 +41,26 @@ func init() {
 			/**
 			 * 钻削
 			 */
-			tool.GET("/drill/gun", handler(controller.DrillGunQueryWithOrderNumber))                       // 枪钻
-			tool.POST("/drill/gun", handler(controller.DrillGunInsert))                                    // 枪钻
+			tool.GET("/drill/gun", handler(controller.DrillGunQueryWithOrderNumber)) // 枪钻
+			tool.POST("/drill/gun", handler(controller.DrillGunInsert))              // 枪钻
+
 			tool.GET("/drill/indexable/body", handler(controller.DrillIndexableBodyQueryWidthOrderNumber)) // 可转位钻头刀体
 			tool.POST("/drill/indexable/body", handler(controller.DrillIndexableBodyInsert))               // 可转位钻头刀体
+
+			tool.GET("/drill/integral", handler(controller.DrillIntegralQueryWithOrderNumber)) // 整体式钻头
+			tool.POST("/drill/integral", handler(controller.DrillIntegralInsert))              // 整体式钻头
+
+			tool.GET("/drill/replace", handler(controller.DrillReplaceQueryWithOrderNumber)) // 可更换钻削刀头
+			tool.POST("/drill/replace", handler(controller.DrillReplaceInsert))              // 可更换钻削刀头
+
+			tool.GET("/drill/replace/body", handler(controller.DrillReplaceBodyQueryWithOrderNumber)) // 可更换钻削刀头刀体
+			tool.POST("/drill/replace/body", handler(controller.DrillIndexableBodyInsert))            // 可更换钻削刀头刀体
+
+			tool.GET("/drill/rotate/blade", handler(controller.DrillRotateBladeQueryWithOrderNumber)) // 可转位钻头刀片
+			tool.POST("/drill/rotate/blade", handler(controller.DrillRotateBladeInsert))              // 可转位钻头刀片
+
+			tool.GET("/groovingCutting/blade", handler(controller.GroovingCuttingBladeQueryWithOrderNumber)) // 切槽切断刀片
+			tool.GET("/groovingCutting/blade", handler(controller.GroovingCuttingBladeInsert))               // 切槽切断刀片
 
 			/**
 			* 错误

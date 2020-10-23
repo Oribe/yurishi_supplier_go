@@ -2,37 +2,35 @@ package model
 
 import (
 	"fmt"
+
+	"github.com/guregu/null"
 )
 
 // BoringHead 镗头
 type BoringHead struct {
-	Category     int    `db:"category" json:"category"`
-	SubCategory  int    `db:"subCategory" json:"subCategory"`
-	Manufacturer string `db:"manufacturer" json:"manufacturer"`
-	OrderNumber  string `db:"orderNumber" json:"orderNumber"`
-	BMC          string
-	CCMS         string
-	CSCMS        string
-	CCTMS        string
-	CZCMS        string
-	CCCRT        string
-	CSCCRT       string
-	CASC         string
-	IIC          string
-	SC           string
-	ANC          string
-	ICDC         string
-	THCKC        string
-	HAND         string
-	DCX          int
-	DCN          int
-	LF           int
-	CSP          int
-	INBORROUGH   int
-	INBORFINE    int
-	INBORSTEP    int
-	INBORBK      int
-	Submitter    string `db:"submitter" json:"submitter"`
+	CutterBase
+	BMC        null.String
+	CCMS       null.String
+	CSCMS      null.String
+	CCTMS      null.String
+	CZCMS      null.String
+	CCCRT      null.String
+	CSCCRT     null.String
+	CASC       null.String
+	IIC        null.String
+	SC         null.String
+	ANC        null.String
+	ICDC       null.String
+	THCKC      null.String
+	HAND       null.String
+	DCX        null.Int
+	DCN        null.Int
+	LF         null.Int
+	CSP        null.Int
+	INBORROUGH null.Int
+	INBORFINE  null.Int
+	INBORSTEP  null.Int
+	INBORBK    null.Int
 }
 
 // InsertToDB 插入数据库

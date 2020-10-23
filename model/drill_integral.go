@@ -1,38 +1,42 @@
 package model
 
-import "fmt"
+import (
+	"fmt"
+
+	"github.com/guregu/null"
+)
 
 // DrillIntegral 整体式钻头
 type DrillIntegral struct {
 	CutterBase
-	TPCODE string `db:"TPCODE"` // 刀具型号
-	GRADE  string `db:"GRADE"`  // 材质等级代码
-	SDTP   string `db:"SDTP"`   // 钻头类型
-	ZEEP   int    `db:"ZEEP"`   // 切削刃数
-	CZCMS  string `db:"CZCMS"`  // 机床侧接口代码
-	TPCON  string `db:"TPCON"`  // 接口类型
-	DCON   int    `db:"DCON"`   // 连接直径
-	HAND   string `db:"HAND"`   // 切削方向
-	DC     int    `db:"DC"`     // 切削直径
-	OAL    int    `db:"OAL"`    // 刀具总长
-	LU     int    `db:"LU"`     // 可用长度
-	CSP    int    `db:"CSP"`    // 冷却液供给特征
-	STN    int    `db:"STN"`    // 阶梯数
-	SDL1   int    `db:"SDL_1"`  // 直径长度-1
-	STA2   int    `db:"STA_2"`  // 阶梯倒角-2
-	DC2    int    `db:"DC_2"`   // 阶梯直径-2
-	SD2    int    `db:"SD_2"`   // 阶梯长度-2
-	SDL2   int    `db:"SDL_2"`  // 直径长度-2
-	STA3   int    `db:"STA_3"`  // 阶梯倒角-3
-	DC3    int    `db:"DC_3"`   // 阶梯直径-3
-	SD3    int    `db:"SD_3"`   // 阶梯长度-3
-	P      int    `db:"P"`      // P
-	M      int    `db:"M"`      // M
-	K      int    `db:"K"`      // K
-	N      int    `db:"N"`      // N
-	S      int    `db:"S"`      // S
-	H      int    `db:"H"`      // H
-	O      int    `db:"O"`      // O
+	TPCODE null.String `db:"TPCODE"`             // 刀具型号
+	GRADE  null.String `db:"GRADE"`              // 材质等级代码
+	SDTP   null.String `db:"SDTP"`               // 钻头类型
+	ZEEP   null.Int    `db:"ZEEP"`               // 切削刃数
+	CZCMS  null.String `db:"CZCMS"`              // 机床侧接口代码
+	TPCON  null.String `db:"TPCON"`              // 接口类型
+	DCON   null.Int    `db:"DCON"`               // 连接直径
+	HAND   null.String `db:"HAND"`               // 切削方向
+	DC     null.Int    `db:"DC"`                 // 切削直径
+	OAL    null.Int    `db:"OAL"`                // 刀具总长
+	LU     null.Int    `db:"LU"`                 // 可用长度
+	CSP    null.Int    `db:"CSP"`                // 冷却液供给特征
+	STN    null.Int    `db:"STN"`                // 阶梯数
+	SDL1   null.Int    `db:"SDL_1" json:"SDL_1"` // 直径长度-1
+	STA2   null.Int    `db:"STA_2" json:"STA_2"` // 阶梯倒角-2
+	DC2    null.Int    `db:"DC_2" json:"DC_2"`   // 阶梯直径-2
+	SD2    null.Int    `db:"SD_2" json:"SD_2"`   // 阶梯长度-2
+	SDL2   null.Int    `db:"SDL_2" json:"SDL_2"` // 直径长度-2
+	STA3   null.Int    `db:"STA_3" json:"STA_3"` // 阶梯倒角-3
+	DC3    null.Int    `db:"DC_3" json:"DC_3"`   // 阶梯直径-3
+	SD3    null.Int    `db:"SD_3" json:"SD_3"`   // 阶梯长度-3
+	P      null.Int    `db:"P"`                  // P
+	M      null.Int    `db:"M"`                  // M
+	K      null.Int    `db:"K"`                  // K
+	N      null.Int    `db:"N"`                  // N
+	S      null.Int    `db:"S"`                  // S
+	H      null.Int    `db:"H"`                  // H
+	O      null.Int    `db:"O"`                  // O
 }
 
 // InsertToDB 插入到数据库

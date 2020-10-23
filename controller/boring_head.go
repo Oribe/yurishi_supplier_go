@@ -33,11 +33,11 @@ func BoringHeadInsert(ctx *middleware.Context) {
 		return
 	}
 
-	userID, exist := getUserID(ctx)
-	if !exist {
+	userID, ok := getUserID(ctx)
+	if !ok {
 		return
 	}
-	body.Submitter = string(userID)
+	body.Submitter = userID
 
 	lastInserID, err := server.BoringHeadInsert(&body)
 	if err != nil {

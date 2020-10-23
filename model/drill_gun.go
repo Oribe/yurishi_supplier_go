@@ -2,29 +2,31 @@ package model
 
 import (
 	"fmt"
+
+	"github.com/guregu/null"
 )
 
 // DrillGun 枪钻
 type DrillGun struct {
 	CutterBase
-	BMC       string `db:"BMC"`       // 刀体材料代码
-	SUBSTRATE string `db:"SUBSTRATE"` // 刀具基体材料
-	CCMS      string `db:"CCMS"`      // 机床侧接口代码
-	CCTMS     string `db:"CCTMS"`     // 机床侧接口类型代码
-	CZCMS     string `db:"CZCMS"`     // 机床侧接口尺寸代码
-	HAND      string `db:"HAND"`      // 切削方向
-	DC        int    `db:"DC"`        // 切削直径
-	LF        int    `db:"LF"`        // 功能长度
-	LU        int    `db:"LU"`        // 可用长度
-	CSP       int    `db:"CSP"`       // 冷却液供给特性
-	DPC       int    `db:"DPC"`       // 阻尼减振属性
-	AMCP      int    `db:"AMCP"`      // 适用加工材料大类P
-	AMCM      int    `db:"AMCM"`      // 适用加工材料大类M
-	AMCK      int    `db:"AMCK"`      // 适用加工材料大类K
-	AMCN      int    `db:"AMCN"`      // 适用加工材料大类N
-	AMCS      int    `db:"AMCS"`      // 适用加工材料大类S
-	AMCH      int    `db:"AMCH"`      // 适用加工材料大类H
-	AMCO      int    `db:"AMCO"`      // 适用加工材料大类O
+	BMC       null.String `db:"BMC" json:"BMC"`             // 刀体材料代码
+	SUBSTRATE null.String `db:"SUBSTRATE" json:"SUBSTRATE"` // 刀具基体材料
+	CCMS      null.String `db:"CCMS" json:"CCMS"`           // 机床侧接口代码
+	CCTMS     null.String `db:"CCTMS" json:"CCTMS"`         // 机床侧接口类型代码
+	CZCMS     null.String `db:"CZCMS" json:"CZCMS"`         // 机床侧接口尺寸代码
+	HAND      null.String `db:"HAND" json:"HAND"`           // 切削方向
+	DC        null.Int    `db:"DC" json:"DC"`               // 切削直径
+	LF        null.Int    `db:"LF" json:"LF"`               // 功能长度
+	LU        null.Int    `db:"LU" json:"LU"`               // 可用长度
+	CSP       null.Int    `db:"CSP" json:"CSP"`             // 冷却液供给特性
+	DPC       null.Int    `db:"DPC" json:"DPC"`             // 阻尼减振属性
+	AMCP      null.Int    `db:"AMCP" json:"AMCP"`           // 适用加工材料大类P
+	AMCM      null.Int    `db:"AMCM" json:"AMCM"`           // 适用加工材料大类M
+	AMCK      null.Int    `db:"AMCK" json:"AMCK"`           // 适用加工材料大类K
+	AMCN      null.Int    `db:"AMCN" json:"AMCN"`           // 适用加工材料大类N
+	AMCS      null.Int    `db:"AMCS" json:"AMCS"`           // 适用加工材料大类S
+	AMCH      null.Int    `db:"AMCH" json:"AMCH"`           // 适用加工材料大类H
+	AMCO      null.Int    `db:"AMCO" json:"AMCO"`           // 适用加工材料大类O
 }
 
 // DrillGunInsertToDB 新增
