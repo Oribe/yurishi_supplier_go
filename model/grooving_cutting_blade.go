@@ -41,7 +41,7 @@ type GroovingCuttingBlade struct {
 // InsertToDB 添加
 func (g *GroovingCuttingBlade) InsertToDB() (int64, error) {
 	sql := `INSERT INTO
-						grooving_cutting_blades
+						grooving_cutting_blade_suppliers
 						(category,subCategory,manufacturer,orderNumber,bladeModel,materialLevel,bladeInterfaceCode,manufacturerLogo,hand,bladeBladePadSizeCode,cuttingEdgeCount,bladeCuttingWidth,bladeMaxCuttingDepth,chipbreakerManufacturerLogo,P,M,K,N,S,H,O,outerGroove,cutOff,faceGrooving,externalCuttingSquareShoulder,externalProfileCutting,outerBack,internalGroove,internalProfileCutting,internalCuttingSquareShoulder,internalBoring,submitter)
 					VALUES
 						(:category,:subCategory,:manufacturer,:orderNumber,:bladeModel,:materialLevel,:bladeInterfaceCode,:manufacturerLogo,:hand,:bladeBladePadSizeCode,:cuttingEdgeCount,:bladeCuttingWidth,:bladeMaxCuttingDepth,:chipbreakerManufacturerLogo,:P,:M,:K,:N,:S,:H,:O,:outerGroove,:cutOff,:faceGrooving,:externalCuttingSquareShoulder,:externalProfileCutting,:outerBack,:internalGroove,:internalProfileCutting,:internalCuttingSquareShoulder,:internalBoring,:submitter)`
@@ -63,11 +63,11 @@ func GroovingCuttingBladeQueryWithOrderNumber(list *[]GroovingCuttingBlade, orde
 	sql := `SELECT
 						category,subCategory,manufacturer,orderNumber,bladeModel,materialLevel,bladeInterfaceCode,manufacturerLogo,hand,bladeBladePadSizeCode,cuttingEdgeCount,bladeCuttingWidth,bladeMaxCuttingDepth,chipbreakerManufacturerLogo,P,M,K,N,S,H,O,outerGroove,cutOff,faceGrooving,externalCuttingSquareShoulder,externalProfileCutting,outerBack,internalGroove,internalProfileCutting,internalCuttingSquareShoulder,internalBoring,submitter
 					FROM
-						grooving_cutting_blades
+						grooving_cutting_blade_suppliers
 					WHERE
 						orderNumber like CONCAT('%',?,'%')
 					AND
-						userID = ?`
+						submitter = ?`
 	stmt, err := db.Preparex(sql)
 	if err != nil {
 		error := fmt.Errorf("grooving_cutting_blade prepare sql failed: %v", err.Error())

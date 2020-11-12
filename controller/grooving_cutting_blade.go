@@ -15,7 +15,7 @@ func GroovingCuttingBladeQueryWithOrderNumber(ctx *middleware.Context) {
 	}
 	rows, err := server.GroovingCuttingBladeQueryWithOrderNumber(orderNumber, userID)
 	if err != nil {
-		ctx.Failed(http.StatusBadRequest, "查询失败", nil, err.Error())
+		ctx.Failed(http.StatusBadRequest, "查询失败", err.Error(), err.Error())
 		return
 	}
 	ctx.Success(rows, "查询成功", 0)
@@ -37,7 +37,7 @@ func GroovingCuttingBladeInsert(ctx *middleware.Context) {
 	body.Submitter = userID
 	id, err := server.GroovingCuttingBladeInsert(body)
 	if err != nil {
-		ctx.Failed(http.StatusBadRequest, "添加失败", nil, err.Error())
+		ctx.Failed(http.StatusBadRequest, "添加失败", err.Error(), err.Error())
 		return
 	}
 	ctx.Success(id, "添加成功", 0)

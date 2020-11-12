@@ -11,6 +11,7 @@ var log = util.NewLog()
 
 // CutterBase 刀具基本字段
 type CutterBase struct {
+	ID           int64  `db:"id" json:"id"`
 	Category     int    `db:"category" json:"category"`
 	SubCategory  int    `db:"subCategory" json:"subCategory"`
 	Manufacturer string `db:"manufacturer" json:"manufacturer"`

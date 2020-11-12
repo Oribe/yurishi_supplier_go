@@ -59,8 +59,17 @@ func init() {
 			tool.GET("/drill/rotate/blade", handler(controller.DrillRotateBladeQueryWithOrderNumber)) // 可转位钻头刀片
 			tool.POST("/drill/rotate/blade", handler(controller.DrillRotateBladeInsert))              // 可转位钻头刀片
 
+			/**
+			 * 切槽切断
+			 */
 			tool.GET("/groovingCutting/blade", handler(controller.GroovingCuttingBladeQueryWithOrderNumber)) // 切槽切断刀片
-			tool.GET("/groovingCutting/blade", handler(controller.GroovingCuttingBladeInsert))               // 切槽切断刀片
+			tool.POST("/groovingCutting/blade", handler(controller.GroovingCuttingBladeInsert))              // 切槽切断刀片
+
+			tool.GET("/groovingCutting/externalBody", handler(controller.GroovingCuttingExternalBodyQueryWithOrderNumber)) // 外圆切槽切断刀体
+			tool.POST("/groovingCutting/externalBody", handler(controller.GroovingCuttingExternalBodyInsertToDB))          // 外圆切槽切断刀体
+
+			tool.GET("/groovingCutting/internalBody", handler(controller.GroovingCuttingInternalBodyQueryByOrderNumber)) // 內圆切槽切断刀体
+			tool.POST("/groovingCutting/internalBody", handler(controller.GroovingCuttingInternalBodyUpsert))            // 內圆切槽切断刀体
 
 			/**
 			* 错误
